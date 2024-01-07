@@ -40,6 +40,6 @@ typedef struct {
     int color;
 } ant_t;
 
-
+void moveAnt( int ***board_structure_pointer, int rows_count, int columns_count, ant_t *ant );
 
 #endif
