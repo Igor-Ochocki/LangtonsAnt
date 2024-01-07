@@ -4,12 +4,12 @@
 #define WHITE_COLOR 0
 #define ANT 2
 
-#define LINE_VERTICAL '│'
-#define LINE_HORIZONTAL '─'
-#define LINE_DOWN_RIGHT '┌'
-#define LINE_DOWN_LEFT '┐'
-#define LINE_UP_RIGHT '└'
-#define LINE_UP_LEFT '┘'
+#define LINE_VERTICAL '┃'
+#define LINE_HORIZONTAL '━'
+#define LINE_DOWN_RIGHT '┏'
+#define LINE_DOWN_LEFT '┓'
+#define LINE_UP_RIGHT '┗'
+#define LINE_UP_LEFT '┛'
 #define SQUARE_WHITE ' '
 #define SQUARE_BLACK '█'
 #define ARROW_NORTH_WHITE '△'
@@ -20,6 +20,11 @@
 #define ARROW_SOUTH_BLACK '▼'
 #define ARROW_WEST_WHITE '◁'
 #define ARROW_WEST_BLACK '◀'
+#define LINE_UP_RIGHT_DOWN '┣'
+#define LINE_UP_LEFT_RIGHT '┻'
+#define LINE_RIGHT_DOWN_LEFT '┳'
+#define LINE_UP_DOWN_LEFT '┫'
+#define LINE_UP_RIGHT_DOWN_LEFT '╋'
 
 enum Directions {
     UP,
