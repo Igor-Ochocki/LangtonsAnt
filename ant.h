@@ -23,7 +23,7 @@
 #define LINE_UP_RIGHT_DOWN "┣"
 #define LINE_UP_LEFT_RIGHT "┻"
 #define LINE_RIGHT_DOWN_LEFT "┳"
-#define LINE_UP_DOWN_LEFT "┃"
+#define LINE_UP_DOWN_LEFT "┫"
 #define LINE_UP_RIGHT_DOWN_LEFT "╋"
 
 enum Directions {
