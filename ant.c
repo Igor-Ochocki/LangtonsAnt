@@ -2,7 +2,7 @@
 
 void moveAnt(int ***board_structure_pointer, int rows_count, int columns_count, ant_t *ant)
 {
-    int **board_structure = *board_structure;
+    int **board_structure = *board_structure_pointer;
     // Change ant's direction
     switch (ant->color)
     {
@@ -60,7 +60,7 @@ void moveAnt(int ***board_structure_pointer, int rows_count, int columns_count, 
         if (ant->row == 0)
             ant->row = rows_count - 1;
         else
-            ant->row = ant->row + 1;
+            ant->row = ant->row - 1;
         break;
     case RIGHT:
         if(ant->col == columns_count - 1)
@@ -78,7 +78,7 @@ void moveAnt(int ***board_structure_pointer, int rows_count, int columns_count, 
         if(ant->row == rows_count - 1)
             ant->row = 0;
         else
-            ant->row = ant->row - 1;
+            ant->row = ant->row + 1;
         break;
     }
     ant->color = board_structure[ant->row][ant->col];

@@ -40,8 +40,8 @@ int **loadBoardFromFile(char *fileName, int *rows_count, int *columns_count)
         board_structure[i] = malloc(sizeof *board_structure[i] * (*columns_count));
     }
     in = fopen(fileName, "r");
-    wchar_t black_wall = L' ';
-    wchar_t white_wall = L'█';
+    wchar_t black_wall = L'█';
+    wchar_t white_wall = L' ';
     int row = 0, col = 0;
     while ((symbol = fgetwc(in)) != WEOF)
     {
