@@ -2,6 +2,6 @@
 #define _BOARD_GENERATOR_H_
 #include "ant.h"
 
-int **generateBoard( int size, int fill_percentage );
+int **generateBoard( int row,int col, int fill_percentage );
 
 #endif

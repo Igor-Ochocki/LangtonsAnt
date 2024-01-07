@@ -1,26 +1,39 @@
 #include "print_board.h"
 #include <stdio.h>
 
-void printBoard( int **board, int row, int col , ant_t *ant )
+void printBoard( int **board, int row, int col , ant_t *ant, char* filename )
 {
-        
+        FILE *in;
+	if(filename!=NULL)
+	{
+		in=fopen(filename,"w");
+		if(in==NULL)
+		{
+			printf("Nie moge otworzyc pliku %s\n",filename);
+			in=stdout;
+		}
+	}
+	else
+		in=stdout;
+	
+	
         
         int c=0;
         int r=0;
         for(c=0; c<(2*col)+1; c++)
         {
                 if(c==0)
-                        printf("%s",LINE_DOWN_RIGHT);
+                        fprintf(in,"%s",LINE_DOWN_RIGHT);
                 else  if(c==(2*col))
-                        printf("%s",LINE_DOWN_LEFT);
+                        fprintf(in,"%s",LINE_DOWN_LEFT);
                 else if(c%2==1)
-                    printf("%s",LINE_HORIZONTAL);
+                        fprintf(in,"%s",LINE_HORIZONTAL);
                 else
-                        printf("%s",LINE_RIGHT_DOWN_LEFT);
+                        fprintf(in,"%s",LINE_RIGHT_DOWN_LEFT);
         }
 
 
-printf("\n");
+fprintf(in,"\n");
 
 
         for(r=1; r<(2*row); r++)
@@ -33,60 +46,60 @@ printf("\n");
                                 if(c%2==1)
                                		switch(board[r/2][c/2]){
 					case BLACK_COLOR:		
-					printf("%s",SQUARE_BLACK); //warunek z boarda jaki kolor ma byc
+					fprintf(in,"%s",SQUARE_BLACK); //warunek z boarda jaki kolor ma byc
                                 		break;
 					case WHITE_COLOR:
-						printf("%s",SQUARE_WHITE); //warunek z boarda jaki kolor ma byc
+						fprintf(in,"%s",SQUARE_WHITE); //warunek z boarda jaki kolor ma byc
                                                 break;
 					case ANT:
 						switch(ant->direction){
 						case UP:
 							if(ant->color==WHITE_COLOR)
-							printf("%s",ARROW_NORTH_WHITE);
+							fprintf(in,"%s",ARROW_NORTH_WHITE);
 							else
-							printf("%s",ARROW_NORTH_BLACK);
+							fprintf(in,"%s",ARROW_NORTH_BLACK);
 							break;
 						case DOWN:
                                                         if(ant->color==WHITE_COLOR)
-                                                        printf("%s",ARROW_SOUTH_WHITE);
+                                                        fprintf(in,"%s",ARROW_SOUTH_WHITE);
                                                         else
-                                                        printf("%s",ARROW_SOUTH_BLACK);
+                                                        fprintf(in,"%s",ARROW_SOUTH_BLACK);
                                                         break;
 						case LEFT:
 		 					if(ant->color==WHITE_COLOR)
-                                                        printf("%s",ARROW_WEST_WHITE);
+                                                        fprintf(in,"%s",ARROW_WEST_WHITE);
                                                         else
-                                                        printf("%s",ARROW_WEST_BLACK);
+                                                        fprintf(in,"%s",ARROW_WEST_BLACK);
                                                         break;
 						case RIGHT:
       							if(ant->color==WHITE_COLOR)
-                                                        printf("%s",ARROW_EAST_WHITE);
+                                                        fprintf(in,"%s",ARROW_EAST_WHITE);
                                                         else
-                                                        printf("%s",ARROW_EAST_BLACK);
+                                                        fprintf(in,"%s",ARROW_EAST_BLACK);
                                                         break;
 						}
 					}
 
 				if(c%2==0)
-                                printf("%s",LINE_VERTICAL);
+                                fprintf(in,"%s",LINE_VERTICAL);
 
                         }
                         else
                         {
                                 if(c==0)
-                                        printf("%s",LINE_UP_RIGHT_DOWN);
+                                        fprintf(in,"%s",LINE_UP_RIGHT_DOWN);
                                 else if(c==(2*col))
-                                        printf("%s",LINE_UP_DOWN_LEFT);
+                                        fprintf(in,"%s",LINE_UP_DOWN_LEFT);
                                 else if(c%2==1)
-                                        printf("%s",LINE_HORIZONTAL);
+                                        fprintf(in,"%s",LINE_HORIZONTAL);
                                 else
-                                        printf("%s",LINE_UP_RIGHT_DOWN_LEFT);
+                                        fprintf(in,"%s",LINE_UP_RIGHT_DOWN_LEFT);
 
 
                         }
 
                 }
- printf("\n");
+ fprintf(in,"\n");
 
 
         }
@@ -96,16 +109,16 @@ printf("\n");
         for(c=0; c<(2*col)+1; c++)
         {
                 if(c==0)
-                        printf("%s",LINE_UP_RIGHT);
+                        fprintf(in,"%s",LINE_UP_RIGHT);
                 else if(c==(2*col))
-                        printf("%s",LINE_UP_LEFT);
+                        fprintf(in,"%s",LINE_UP_LEFT);
                 else if(c%2==1)
-                        printf("%s",LINE_HORIZONTAL);
+                        fprintf(in,"%s",LINE_HORIZONTAL);
                 else
-                        printf("%s",LINE_UP_LEFT_RIGHT);
+                        fprintf(in,"%s",LINE_UP_LEFT_RIGHT);
         }
 
 
-printf("\n");	
+fprintf(in,"\n");	
 
 }

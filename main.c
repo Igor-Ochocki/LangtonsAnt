@@ -5,6 +5,7 @@
 #include "load_board.h"
 #include "print_board.h"
 #include "ant.h"
+#include "board_generator.h"
 
 void readArguments(int argc, char **argv, int *row_count, int *column_count, int *iterations, int *percent_fill, char **saveFileName, char **readFileName, enum Directions *direction)
 {
@@ -59,7 +60,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
                 printf("Niepoprwana wartość argumentu %c\n", opt);
                 exit(1);
             }
-            *iterations = atoi(optarg);
+            *percent_fill = atoi(optarg);
             break;
         case 'r':
             *readFileName = malloc(sizeof **readFileName * strlen(optarg));
@@ -82,18 +83,18 @@ int main(int argc, char **argv)
     char *saveFileName = NULL;
     char *readFileName = NULL;
     readArguments(argc, argv, &row_count, &column_count, &iterations, &percent_fill, &saveFileName, &readFileName, &direction);
-    int **board = loadBoardFromFile(readFileName, &row_count, &column_count);
+    int **board = generateBoard(row_count, column_count, percent_fill);
     ant_t *ant = malloc(sizeof ant);
-    ant->row = 1;
-    ant->col = 1;
-    ant->color = BLACK_COLOR;
+    ant->row = 0;
+    ant->col = 0;
+    ant->color = board[ant->row][ant->col];;
     ant->direction = UP;
     board[ant->row][ant->col] = ANT;
     while (iterations--)
     {
-        printBoard(board, row_count, column_count, ant);
+        printBoard(board, row_count, column_count, ant, saveFileName);
         moveAnt(&board, row_count, column_count, ant);
     }
-    printBoard(board, row_count, column_count, ant);
+    printBoard(board, row_count, column_count, ant, saveFileName);
     return 0;
 }
