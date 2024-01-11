@@ -9,7 +9,7 @@ a następnie uruchamiany debuger przy pomocy
 ## Uruchomienie programu
 Program uruchamiany jest poprzez wywołanie komendy (po uprzedniej kompilacji) 
 ```
-.langton.out [parametr] [wartość] [parametr] [wartość] ...
+./langton.out [parametr] [wartość] [parametr] [wartość] ...
 ```
 ### Opis parametrów
 #### Wczytywanie planszy
