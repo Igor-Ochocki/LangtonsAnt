@@ -19,7 +19,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
         case 'm':
             if (atoi(optarg) <= 0)
             {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
+                printf("Niepoprawna wartość argumentu %c\n", opt);
                 exit(1);
             }
             *row_count = atoi(optarg);
@@ -27,7 +27,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
         case 'n':
             if (atoi(optarg) <= 0)
             {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
+                printf("Niepoprawna wartość argumentu %c\n", opt);
                 exit(1);
             }
             *column_count = atoi(optarg);
@@ -35,7 +35,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
         case 'i':
             if (atoi(optarg) <= 0)
             {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
+                printf("Niepoprawna wartość argumentu %c\n", opt);
                 exit(1);
             }
             *iterations = atoi(optarg);
@@ -43,7 +43,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
         case 'd':
             if (atoi(optarg) == 0 && strcmp(optarg, "0") != 0)
             {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
+                printf("Niepoprawna wartość argumentu %c\n", opt);
                 exit(1);
             }
             if (atoi(optarg) > 3 || atoi(optarg) < 0)
@@ -55,7 +55,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
         case 'g':
             if (atoi(optarg) <= 0 || atoi(optarg) > 100)
             {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
+                printf("Niepoprawna wartość argumentu %c\n", opt);
                 exit(1);
             }
             *percent_fill = atoi(optarg);
@@ -65,7 +65,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
             strcpy(*readFileName, optarg);
             break;
         case ':':
-            printf("option needs a value\n");
+            printf("Opcja %c wymaga wartości\n", opt);
             break;
         case '?':
             printf("Podano niepoprawną opcję wywołania\n");
