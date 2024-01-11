@@ -109,4 +109,6 @@ void printBoard(int **board, int row, int col, ant_t *ant, char *filename)
     }
 
     fprintf(in, "\n");
+    if(in != stdout)
+        fclose(in);
 }

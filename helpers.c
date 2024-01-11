@@ -17,7 +17,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
             strcpy(*saveFileName, optarg);
             break;
         case 'm':
-            if (atoi(optarg) == 0)
+            if (atoi(optarg) <= 0)
             {
                 printf("Niepoprwana wartość argumentu %c\n", opt);
                 exit(1);
@@ -25,7 +25,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
             *row_count = atoi(optarg);
             break;
         case 'n':
-            if (atoi(optarg) == 0)
+            if (atoi(optarg) <= 0)
             {
                 printf("Niepoprwana wartość argumentu %c\n", opt);
                 exit(1);
@@ -33,7 +33,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
             *column_count = atoi(optarg);
             break;
         case 'i':
-            if (atoi(optarg) == 0)
+            if (atoi(optarg) <= 0)
             {
                 printf("Niepoprwana wartość argumentu %c\n", opt);
                 exit(1);
@@ -41,7 +41,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
             *iterations = atoi(optarg);
             break;
         case 'd':
-            if (atoi(optarg) == 0 && optarg != "0")
+            if (atoi(optarg) == 0 && strcmp(optarg, "0") != 0)
             {
                 printf("Niepoprwana wartość argumentu %c\n", opt);
                 exit(1);
@@ -53,7 +53,7 @@ void readArguments(int argc, char **argv, int *row_count, int *column_count, int
             *direction = atoi(optarg);
             break;
         case 'g':
-            if (atoi(optarg) == 0)
+            if (atoi(optarg) <= 0 || atoi(optarg) > 100)
             {
                 printf("Niepoprwana wartość argumentu %c\n", opt);
                 exit(1);

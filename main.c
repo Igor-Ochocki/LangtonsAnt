@@ -11,8 +11,8 @@
 int main(int argc, char **argv)
 {
     srand(time(NULL));
-    int row_count = 0, column_count = 0, iterations = 10, percent_fill = 0;
-    enum Directions direction;
+    int row_count = 0, column_count = 0, iterations = 10, percent_fill = 0, i;
+    enum Directions direction = -1;
     char *saveFileName = NULL;
     char *readFileName = NULL;
     readArguments(argc, argv, &row_count, &column_count, &iterations, &percent_fill, &saveFileName, &readFileName, &direction);
@@ -22,20 +22,22 @@ int main(int argc, char **argv)
         return 1;
     }
     int **board = readFileName == NULL ? generateBoard(row_count, column_count, percent_fill) : loadBoardFromFile(readFileName, &row_count, &column_count);
-    ant_t *ant = createAnt(getRandomValue(row_count), getRandomValue(column_count), getRandomValue(4), board);
+    if(direction == -1)
+        direction = getRandomValue(4);
+    ant_t *ant = createAnt(getRandomValue(row_count), getRandomValue(column_count), direction, board);
     board[ant->row][ant->col] = ANT;
     char *tempSaveFileName = saveFileName != NULL ? malloc(sizeof *tempSaveFileName * (strlen(saveFileName) + 9 + strlen(OUTPUTFOLDER_NAME))) : NULL;
-    for (int i = 0; i <= iterations; i++)
+    for (i = 0; i <= iterations; i++)
     {
         if (saveFileName != NULL)
             sprintf(tempSaveFileName, "%s/%s_%d", OUTPUTFOLDER_NAME, saveFileName, i);
         saveFileName != NULL ? printBoard(board, row_count, column_count, ant, tempSaveFileName) : printBoard(board, row_count, column_count, ant, saveFileName);
         moveAnt(&board, row_count, column_count, ant);
     }
-    saveFileName != NULL ? printBoard(board, row_count, column_count, ant, tempSaveFileName) : printBoard(board, row_count, column_count, ant, saveFileName);
     free(saveFileName);
     free(tempSaveFileName);
     free(readFileName);
     free(board);
+    free(ant);
     return 0;
 }
