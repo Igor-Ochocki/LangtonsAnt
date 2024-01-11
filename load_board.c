@@ -6,6 +6,8 @@
 
 int **loadBoardFromFile(char *fileName, int *rows_count, int *columns_count)
 {
+    *rows_count = 0;
+    *columns_count = 0;
     setlocale(LC_ALL, "C.UTF-8");
     if (fileName == NULL)
     {
