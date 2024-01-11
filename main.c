@@ -11,7 +11,7 @@
 int main(int argc, char **argv)
 {
     srand(time(NULL));
-    int row_count = 0, column_count = 0, iterations = 10, percent_fill = 0, i;
+    int row_count = 5, column_count = 5, iterations = 10, percent_fill = 0, i;
     enum Directions direction = -1;
     char *saveFileName = NULL;
     char *readFileName = NULL;
