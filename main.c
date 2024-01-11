@@ -1,100 +1,41 @@
-#include <string.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include "load_board.h"
 #include "print_board.h"
 #include "ant.h"
 #include "board_generator.h"
-
-void readArguments(int argc, char **argv, int *row_count, int *column_count, int *iterations, int *percent_fill, char **saveFileName, char **readFileName, enum Directions *direction)
-{
-    int opt;
-    while ((opt = getopt(argc, argv, "m:n:i:f:d:g:r:")) != -1)
-    {
-        switch (opt)
-        {
-        case 'f':
-            *saveFileName = malloc(sizeof **saveFileName * strlen(optarg));
-            strcpy(*saveFileName, optarg);
-            break;
-        case 'm':
-            if (atoi(optarg) == 0)
-            {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
-                exit(1);
-            }
-            *row_count = atoi(optarg);
-            break;
-        case 'n':
-            if (atoi(optarg) == 0)
-            {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
-                exit(1);
-            }
-            *column_count = atoi(optarg);
-            break;
-        case 'i':
-            if (atoi(optarg) == 0)
-            {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
-                exit(1);
-            }
-            *iterations = atoi(optarg);
-            break;
-        case 'd':
-            if (atoi(optarg) == 0 && optarg != "0")
-            {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
-                exit(1);
-            }
-            if (atoi(optarg) > 3 || atoi(optarg) < 0)
-            {
-                printf("Niepoprawny kierunek mrówki %c. Podaj wartość z zakresu 0-3\n", opt);
-            }
-            *direction = atoi(optarg);
-            break;
-        case 'g':
-            if (atoi(optarg) == 0)
-            {
-                printf("Niepoprwana wartość argumentu %c\n", opt);
-                exit(1);
-            }
-            *percent_fill = atoi(optarg);
-            break;
-        case 'r':
-            *readFileName = malloc(sizeof **readFileName * strlen(optarg));
-            strcpy(*readFileName, optarg);
-            break;
-        case ':':
-            printf("option needs a value\n");
-            break;
-        case '?':
-            printf("Podano niepoprawną opcję wywołania\n");
-            break;
-        }
-    }
-}
+#include "helpers.h"
+#include <time.h>
+#include <string.h>
 
 int main(int argc, char **argv)
 {
-    int row_count = 0, column_count = 0, iterations, percent_fill;
+    srand(time(NULL));
+    int row_count = 0, column_count = 0, iterations = 10, percent_fill = 0;
     enum Directions direction;
     char *saveFileName = NULL;
     char *readFileName = NULL;
     readArguments(argc, argv, &row_count, &column_count, &iterations, &percent_fill, &saveFileName, &readFileName, &direction);
-    int **board = generateBoard(row_count, column_count, percent_fill);
-    ant_t *ant = malloc(sizeof ant);
-    ant->row = 0;
-    ant->col = 0;
-    ant->color = board[ant->row][ant->col];;
-    ant->direction = UP;
-    board[ant->row][ant->col] = ANT;
-    while (iterations--)
+    if (row_count < 1 || column_count < 1)
     {
-        printBoard(board, row_count, column_count, ant, saveFileName);
+        fprintf(stderr, "Podano niepoprawne wymiary planszy mrówki\n");
+        return 1;
+    }
+    int **board = readFileName == NULL ? generateBoard(row_count, column_count, percent_fill) : loadBoardFromFile(readFileName, &row_count, &column_count);
+    ant_t *ant = createAnt(getRandomValue(row_count), getRandomValue(column_count), getRandomValue(4), board);
+    board[ant->row][ant->col] = ANT;
+    char *tempSaveFileName = saveFileName != NULL ? malloc(sizeof *tempSaveFileName * (strlen(saveFileName) + 9 + strlen(OUTPUTFOLDER_NAME))) : NULL;
+    for (int i = 0; i <= iterations; i++)
+    {
+        if (saveFileName != NULL)
+            sprintf(tempSaveFileName, "%s/%s_%d", OUTPUTFOLDER_NAME, saveFileName, i);
+        saveFileName != NULL ? printBoard(board, row_count, column_count, ant, tempSaveFileName) : printBoard(board, row_count, column_count, ant, saveFileName);
         moveAnt(&board, row_count, column_count, ant);
     }
-    printBoard(board, row_count, column_count, ant, saveFileName);
+    saveFileName != NULL ? printBoard(board, row_count, column_count, ant, tempSaveFileName) : printBoard(board, row_count, column_count, ant, saveFileName);
+    free(saveFileName);
+    free(tempSaveFileName);
+    free(readFileName);
+    free(board);
     return 0;
 }

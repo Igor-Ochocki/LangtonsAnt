@@ -53,10 +53,10 @@ int **loadBoardFromFile(char *fileName, int *rows_count, int *columns_count)
         }
         if (row % 2 == 1)
         {
-            if(symbol == black_wall)
-                board_structure[row/2][col/2] = BLACK_COLOR;
-            else if(symbol == white_wall)
-                board_structure[row/2][col/2] = WHITE_COLOR;
+            if (symbol == black_wall)
+                board_structure[row / 2][col / 2] = BLACK_COLOR;
+            else if (symbol == white_wall)
+                board_structure[row / 2][col / 2] = WHITE_COLOR;
         }
         col++;
     }

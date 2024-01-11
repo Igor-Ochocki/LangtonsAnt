@@ -3,6 +3,6 @@
 #include "ant.h"
 #define BUFF_SIZE 2048
 
-int **loadBoardFromFile( char *fileName, int *rows_count, int *columns_count );
+int **loadBoardFromFile(char *fileName, int *rows_count, int *columns_count);
 
 #endif

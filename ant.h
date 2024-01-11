@@ -3,6 +3,7 @@
 #define BLACK_COLOR 1
 #define WHITE_COLOR 0
 #define ANT 2
+#define OUTPUTFOLDER_NAME "output"
 
 #define LINE_VERTICAL "┃"
 #define LINE_HORIZONTAL "━"
@@ -26,20 +27,23 @@
 #define LINE_UP_DOWN_LEFT "┫"
 #define LINE_UP_RIGHT_DOWN_LEFT "╋"
 
-enum Directions {
+enum Directions
+{
     UP,
     RIGHT,
     DOWN,
     LEFT
 };
 
-typedef struct {
+typedef struct
+{
     enum Directions direction;
     int col;
     int row;
     int color;
 } ant_t;
 
-void moveAnt( int ***board_structure_pointer, int rows_count, int columns_count, ant_t *ant );
+void moveAnt(int ***board_structure_pointer, int rows_count, int columns_count, ant_t *ant);
+ant_t *createAnt(int row, int col, enum Directions direction, int **board);
 
 #endif
